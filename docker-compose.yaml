@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  myservice:
+    image: thetadata:latest
+    ports:
+      - "25510:25510"
+    environment:
+      THETA_DATA_USERNAME: ${THETA_DATA_USERNAME}
+      THETA_DATA_PASSWORD: ${THETA_DATA_PASSWORD}
