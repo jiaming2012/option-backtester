@@ -16,13 +16,31 @@ func main() {
 		Strike:     170.0,
 		StartDate:  time.Date(2023, time.November, 3, 0, 0, 0, 0, time.UTC),
 		EndDate:    time.Date(2023, time.November, 3, 0, 0, 0, 0, time.UTC),
-		Interval:   15 * time.Minute,
+		Interval:   1 * time.Minute,
 	}
 
-	resp, err := services.FetchHistOptionOHLC(req)
+	baseURL := "http://localhost:25510"
+	resp, err := services.FetchHistOptionOHLC(baseURL, req)
 	if err != nil {
 		panic(fmt.Errorf("failed to fetch option ohlc: %w", err))
 	}
 
-	fmt.Println(resp)
+	candlesDTO, err := resp.ToHistOptionOhlcDTO()
+	if err != nil {
+		panic(fmt.Errorf("failed to convert response to dto: %w", err))
+	}
+
+	loc, err := time.LoadLocation("America/New_York")
+	if err != nil {
+		panic(fmt.Errorf("failed to load location: %w", err))
+	}
+
+	candles, err := models.HistOptionOhlcDTOs(candlesDTO).ConvertToHistOptionOhlc(loc)
+	if err != nil {
+		panic(fmt.Errorf("failed to convert dto to candle: %w", err))
+	}
+
+	for i, candle := range candles {
+		fmt.Printf("%d: %+v\n", i, candle)
+	}
 }
