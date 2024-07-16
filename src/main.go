@@ -14,8 +14,8 @@ func main() {
 		Right:      models.OptionTypeCall,
 		Expiration: time.Date(2023, time.November, 3, 0, 0, 0, 0, time.UTC),
 		Strike:     170.0,
-		StartDate:  time.Date(2023, time.November, 3, 0, 0, 0, 0, time.UTC),
-		EndDate:    time.Date(2023, time.November, 3, 0, 0, 0, 0, time.UTC),
+		StartDate:  time.Date(2023, time.November, 1, 0, 0, 0, 0, time.UTC),
+		EndDate:    time.Date(2023, time.November, 2, 0, 0, 0, 0, time.UTC),
 		Interval:   1 * time.Minute,
 	}
 

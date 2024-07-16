@@ -22,15 +22,15 @@ func convertDateAndMsToTime(date int, msOfDay int, loc *time.Location) (time.Tim
 	dateStr := strconv.Itoa(date)
 	year, err := strconv.Atoi(dateStr[:4])
 	if err != nil {
-		return time.Time{}, err
+		return time.Time{}, fmt.Errorf("convertDateAndMsToTime: failed to convert date to year: %w", err)
 	}
 	month, err := strconv.Atoi(dateStr[4:6])
 	if err != nil {
-		return time.Time{}, err
+		return time.Time{}, fmt.Errorf("convertDateAndMsToTime: failed to convert date to month: %w", err)
 	}
 	day, err := strconv.Atoi(dateStr[6:])
 	if err != nil {
-		return time.Time{}, err
+		return time.Time{}, fmt.Errorf("convertDateAndMsToTime: failed to convert date to day: %w", err)
 	}
 
 	// Convert milliseconds to hours, minutes, and seconds
@@ -60,11 +60,4 @@ func (dto *HistOptionOhlcDTO) ToHistOptionOhlc(loc *time.Location) (*HistOptionO
 	}, nil
 }
 
-type HistOptionOhlc struct {
-	Timestamp time.Time
-	Open      float64
-	High      float64
-	Low       float64
-	Close     float64
-	Volume    int
-}
+

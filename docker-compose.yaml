@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  myservice:
-    image: thetadata:latest
+  thetadata-client:
+    image: thetadata-client:latest
     ports:
       - "25510:25510"
     environment:
